@@ -1,8 +1,14 @@
 import utils
+import regions
+#quick_print(get_pos_x(), get_pos_y())
+
 print("Start")
 change_hat(Hats.Carrot_Hat)
 utils.reset()
 counter = 0
+# utils.plant_region((3,3),(5,6),regions.grass)
+
+
 while True:
 	counter = counter + 1
 	if counter > 5:
@@ -10,13 +16,12 @@ while True:
 		counter = 0
 	for i in range(get_world_size()):
 		for j in range(get_world_size()):
-			quick_print(get_pos_x(), get_pos_y())
 			if can_harvest():
 				harvest()
 			if utils.checker_board(i, j):
 				plant(Entities.Tree)
 			else:
-				if get_pos_x() > get_world_size() - 4:
+				if get_pos_x() > get_world_size() // 2:
 					utils.plant_carrot()
 				else:
 					if get_ground_type() != Grounds.Grassland:
