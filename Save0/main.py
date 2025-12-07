@@ -2,18 +2,25 @@ import utils
 print("Start")
 change_hat(Hats.Carrot_Hat)
 utils.reset()
+counter = 0
 while True:
+	counter = counter + 1
+	if counter > 5:
+		utils.pumpkin_patch()
+		counter = 0
 	for i in range(get_world_size()):
 		for j in range(get_world_size()):
 			quick_print(get_pos_x(), get_pos_y())
 			if can_harvest():
 				harvest()
-			if get_pos_y() > 0 and get_pos_x() < get_world_size() - 1:
-				plant(Entities.Bush)
+			if utils.checker_board(i, j):
+				plant(Entities.Tree)
 			else:
-				if get_pos_x() == get_world_size() - 1:
-					if get_ground_type() != Grounds.Soil:
+				if get_pos_x() > get_world_size() - 4:
+					utils.plant_carrot()
+				else:
+					if get_ground_type() != Grounds.Grassland:
 						till()
-					plant(Entities.Carrot)
 			move(North)
 		move(East)
+
