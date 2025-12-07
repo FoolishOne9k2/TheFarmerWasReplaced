@@ -25,24 +25,39 @@ def plant_carrot():
 	plant(Entities.Carrot)
 
 def plant_pumpkin():
-	if get_entity_type() != Entities.Pumpkin:
+	ent = get_entity_type()
+	if ent != Entities.Pumpkin:
 		harvest()
 	if get_ground_type() != Grounds.Soil:
 		till()
-	if get_entity_type() == None or get_entity_type() == Entities.Dead_Pumpkin:
+	if ent == None or ent == Entities.Dead_Pumpkin:
 		plant(Entities.Pumpkin)
+	return ent
+
+def recheck_pumpkins(dead_pumpkins):
+	while len(dead_pumpkins) > 0:
+		dp = dead_pumpkins.pop()
+		move_to(dp[0],dp[1])
+		previous_entity = plant_pumpkin()
+		if not can_harvest():
+			dead_pumpkins.insert(0,(get_pos_x(),get_pos_y()))
+
 
 def pumpkin_patch():
 	harvestable = 0
+	dead_pumpkins = []
 	while harvestable < get_world_size() * get_world_size():
 		harvestable = 0
 		for i in range(get_world_size()):
 			for j in range(get_world_size()):
-				plant_pumpkin()
+				previous_entity = plant_pumpkin()
+				if previous_entity == Entities.Dead_Pumpkin:
+					dead_pumpkins.insert(0,(i,j))
 				if can_harvest():
 					harvestable = harvestable + 1
 				move(North)
 			move(East)
+		recheck_pumpkins(dead_pumpkins)
 	harvest()
 
 def plant_region(start,end,function):
