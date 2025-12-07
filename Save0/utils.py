@@ -32,7 +32,6 @@ def plant_pumpkin():
 		till()
 	if ent == None or ent == Entities.Dead_Pumpkin:
 		plant(Entities.Pumpkin)
-	return ent
 
 def recheck_pumpkins(dead_pumpkins):
 	while len(dead_pumpkins) > 0:
@@ -44,20 +43,14 @@ def recheck_pumpkins(dead_pumpkins):
 
 
 def pumpkin_patch():
-	harvestable = 0
 	dead_pumpkins = []
-	while harvestable < get_world_size() * get_world_size():
-		harvestable = 0
-		for i in range(get_world_size()):
-			for j in range(get_world_size()):
-				previous_entity = plant_pumpkin()
-				if previous_entity == Entities.Dead_Pumpkin:
-					dead_pumpkins.insert(0,(i,j))
-				if can_harvest():
-					harvestable = harvestable + 1
-				move(North)
-			move(East)
-		recheck_pumpkins(dead_pumpkins)
+	for i in range(get_world_size()):
+		for j in range(get_world_size()):
+			plant_pumpkin()
+			dead_pumpkins.insert(0,(i,j))
+			move(North)
+		move(East)
+	recheck_pumpkins(dead_pumpkins)
 	harvest()
 
 def plant_region(start,end,function):

@@ -5,10 +5,10 @@ import regions
 print("Start")
 change_hat(Hats.Carrot_Hat)
 utils.reset()
-counter = 0
-debug = True
+debug = False
 
 def main():
+	counter = 0
 	while True:
 		counter = counter + 1
 		if counter > 5:
