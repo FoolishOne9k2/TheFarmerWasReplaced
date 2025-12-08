@@ -19,8 +19,11 @@ def plant_pumpkin():
 	return False
 
 def plant_sunflower():
-	if get_ground_type() != Grounds.Soil:
-		till()
 	if get_entity_type() != Entities.Sunflower:
+		harvest()
+		if get_ground_type() != Grounds.Soil:
+			till()
 		plant(Entities.Sunflower)
-		sunflowers.sunflowers[(get_pos_x(), get_pos_y())] = None
+		sunflowers.planted_sunflowers[(get_pos_x(), get_pos_y())] = None
+	else:
+		sunflowers.measure_sunflower()

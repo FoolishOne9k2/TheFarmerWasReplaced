@@ -36,3 +36,10 @@ def reset():
 
 def checker_board(x,y):
 	return ( x + y ) % 2 == 0
+
+def maintain_water_level(water_level):
+	if water_level > 1 or water_level < 0:
+		quick_print("Invalid Water Level",water_level)
+	while get_water() < water_level and num_items(Items.Water) > 5:
+		use_item(Items.Water)
+	

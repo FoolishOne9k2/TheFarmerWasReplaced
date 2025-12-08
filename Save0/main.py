@@ -1,7 +1,7 @@
 import utils
 import pumpkins
-import plant
 import regions
+import sunflowers
 
 print("Start")
 change_hat(Hats.Carrot_Hat)
@@ -13,11 +13,13 @@ def main():
 	while True:
 		counter = counter + 1
 		if counter > 4:
-			pumpkins.pumpkin_patch(1,get_world_size())
+			regions.plant_region_follow((1,1),(get_world_size(),get_world_size()),pumpkins.plant_pumpkin,pumpkins.manage_pumpkins)
 			counter = 0
+		regions.plant_region((0,0),(get_world_size(),1),sunflowers.plant_sunflower)
+		regions.plant_region_follow((0,0),(1,get_world_size()),sunflowers.plant_sunflower,sunflowers.harvest_sunflowers)
 		regions.plant_region((1,1),(get_world_size(),get_world_size()),regions.grass_wood_carrot)
 
 if debug == True:
-	pumpkins.pumpkin_patch(1,6)
+	regions.plant_region_follow((0,0),(5,5),regions.sunflower,sunflowers.harvest_sunflowers)
 else:
 	main()
