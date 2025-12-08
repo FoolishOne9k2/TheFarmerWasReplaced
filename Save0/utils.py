@@ -3,76 +3,36 @@ def abs(n):
 		return -n
 	return n
 
-def move_1d(dest, pos_f, directionPositive, directionNegative):
+def _move_1d(dest, pos_f, directionPositive, directionNegative):
 	direction = None
 	dist = abs(dest - pos_f())
 	dir = dest - pos_f() > 0
-	if dist < get_world_size() / 2 and dir:
+	if (dist < (get_world_size() / 2) and dir) or (dist > (get_world_size() / 2) and not dir):
 		direction = directionPositive
 	else:
 		direction = directionNegative
-	quick_print("Moving from:",pos_f(),"to",dest,"direction",direction)
+	num_moves = 0
 	while pos_f() != dest:
+		num_moves = num_moves + 1
 		move(direction)
+	if num_moves > (get_world_size() / 2):
+		quick_print("Too many moves moving from:",pos_f(),"to",dest,"direction",direction,"distance",dist)
 
-def move_x(dest):
-	move_1d(dest, get_pos_x, East, West)
+def _move_x(dest):
+	_move_1d(dest, get_pos_x, East, West)
 
-def move_y(dest):
-	move_1d(dest, get_pos_y, North, South)
+def _move_y(dest):
+	_move_1d(dest, get_pos_y, North, South)
 
 def move_to(x, y):
-	if(x > get_world_size() or y > get_world_size()):
+	if(x < 0 or y < 0 or x > get_world_size() or y > get_world_size()):
 		print("Invalid move_to args:", x, y)
 		return
-	move_x(x)
-	move_y(y)
+	_move_x(x)
+	_move_y(y)
 
 def reset():
 	move_to(0,0)
 
 def checker_board(x,y):
 	return ( x + y ) % 2 == 0
-
-def plant_carrot():
-	if get_ground_type() != Grounds.Soil:
-		till()
-	plant(Entities.Carrot)
-
-def plant_pumpkin():
-	ent = get_entity_type()
-	if ent != Entities.Pumpkin:
-		harvest()
-	if get_ground_type() != Grounds.Soil:
-		till()
-	if ent == None or ent == Entities.Dead_Pumpkin:
-		plant(Entities.Pumpkin)
-
-def recheck_pumpkins(dead_pumpkins):
-	while len(dead_pumpkins) > 0:
-		dp = dead_pumpkins.pop()
-		move_to(dp[0],dp[1])
-		plant_pumpkin()
-		if not can_harvest():
-			dead_pumpkins.insert(0,dp)
-
-
-def pumpkin_patch():
-	dead_pumpkins = []
-	for i in range(get_world_size()):
-		for j in range(get_world_size()):
-			plant_pumpkin()
-			dead_pumpkins.insert(0,(i,j))
-			move(North)
-		move(East)
-	recheck_pumpkins(dead_pumpkins)
-	harvest()
-
-def plant_region(start,end,function):
-	move_to(start[0],start[1])
-	for i in range(end[0]-start[0]+1):
-		for j in range(end[1]-start[1]+1):
-			move_to(start[0]+i,start[1]+j)
-			function(i,j)
-			
-		

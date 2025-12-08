@@ -1,37 +1,23 @@
 import utils
+import pumpkins
+import plant
 import regions
-#quick_print(get_pos_x(), get_pos_y())
 
 print("Start")
 change_hat(Hats.Carrot_Hat)
 utils.reset()
-debug = True
+debug = False
 
 def main():
 	counter = 0
 	while True:
 		counter = counter + 1
-		if counter > 5:
-			utils.pumpkin_patch()
+		if counter > 4:
+			pumpkins.pumpkin_patch(1,get_world_size())
 			counter = 0
-		for i in range(get_world_size()):
-			for j in range(get_world_size()):
-				if can_harvest():
-					harvest()
-				if utils.checker_board(i, j):
-					plant(Entities.Tree)
-				else:
-					if get_pos_x() > get_world_size() // 2:
-						utils.plant_carrot()
-					else:
-						if get_ground_type() != Grounds.Grassland:
-							till()
-				move(North)
-			move(East)
+		regions.plant_region((1,1),(get_world_size(),get_world_size()),regions.grass_wood_carrot)
 
 if debug == True:
-	utils.move_to(3,5)
-	utils.move_to(10,10)
-	utils.move_to(0,0)
+	pumpkins.pumpkin_patch(1,6)
 else:
 	main()
