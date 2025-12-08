@@ -1,6 +1,5 @@
 import utils
 import plant
-import pumpkins
 
 def plant_region(start, end, plant_function):
 	plant_region_follow(start, end, plant_function, None)
@@ -12,6 +11,30 @@ def plant_region_follow(start, end, plant_function, follow_function):
 			plant_function()
 	if follow_function != None:
 		follow_function()
+
+def plant_region_follow_multi_drone(start, end, plant_function, follow_function):
+	num_drone = max_drones() - 2
+	size = end[0] - start[0]
+	quick_print(num_drone)
+	region_size = size // num_drone
+	region_size_remainder = size % num_drone
+	drones = []
+	for d in range(num_drone):
+		def _plant_region_follow_multi_drone():
+			r_start = start[0] + (region_size * d)
+			r_end = start[0] + (region_size * (d + 1))
+			if d == num_drone - 1:
+				r_end += region_size_remainder
+			quick_print("Starting Drone:",r_start,"to",r_end)
+			for i in range(r_start, r_end):
+				for j in range(start[1], end[1]):
+					utils.move_to(i,j)
+					plant_function()
+			if follow_function != None:
+				follow_function()
+		drones.append(utils.spawn_drone_wait(_plant_region_follow_multi_drone))
+	return drones
+	
 
 def grass_wood_carrot():
 	if can_harvest():

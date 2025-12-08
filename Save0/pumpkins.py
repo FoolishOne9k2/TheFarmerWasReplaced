@@ -10,7 +10,6 @@ def manage_pumpkins():
 		plant_pumpkin()
 		if not can_harvest():
 			dead_pumpkins.insert(0,dp)
-	harvest()
 	dead_pumpkins = []
 
 def plant_pumpkin():

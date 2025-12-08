@@ -33,6 +33,19 @@ def move_to(x, y):
 
 def reset():
 	move_to(0,0)
+	def clean_column():
+		for j in range(get_world_size()):
+			move_to(get_pos_x(),j)
+			harvest()
+			if get_ground_type() != Grounds.Grassland:
+				till()
+	drones = []
+	for i in range(get_world_size()):
+		move_to(i,0)
+		drones.append(spawn_drone_wait(clean_column))
+	move_to(0,0)
+	for drone in drones:
+		wait_for(drone)
 
 def checker_board(x,y):
 	return ( x + y ) % 2 == 0
@@ -42,4 +55,14 @@ def maintain_water_level(water_level):
 		quick_print("Invalid Water Level",water_level)
 	while get_water() < water_level and num_items(Items.Water) > 5:
 		use_item(Items.Water)
+
+def spawn_drone_wait(function):
+	drone = None
+	while drone == None:
+		drone = spawn_drone(function)
+	return drone
+
+def wait_for_list(drones):
+	for drone in drones:
+		wait_for(drone)
 	
