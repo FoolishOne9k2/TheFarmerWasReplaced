@@ -5,7 +5,7 @@ import regions
 print("Start")
 change_hat(Hats.Carrot_Hat)
 utils.reset()
-debug = False
+debug = True
 
 def main():
 	counter = 0
@@ -30,6 +30,8 @@ def main():
 			move(East)
 
 if debug == True:
-	utils.pumpkin_patch()
+	utils.move_to(3,5)
+	utils.move_to(10,10)
+	utils.move_to(0,0)
 else:
 	main()

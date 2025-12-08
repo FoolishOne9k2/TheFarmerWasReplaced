@@ -6,10 +6,12 @@ def abs(n):
 def move_1d(dest, pos_f, directionPositive, directionNegative):
 	direction = None
 	dist = abs(dest - pos_f())
-	if dist > abs(dist - get_world_size()):
+	dir = dest - pos_f() > 0
+	if dist < get_world_size() / 2 and dir:
 		direction = directionPositive
 	else:
 		direction = directionNegative
+	quick_print("Moving from:",pos_f(),"to",dest,"direction",direction)
 	while pos_f() != dest:
 		move(direction)
 
