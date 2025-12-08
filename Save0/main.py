@@ -28,6 +28,7 @@ def main():
 							till()
 				move(North)
 			move(East)
+
 if debug == True:
 	utils.pumpkin_patch()
 else:
