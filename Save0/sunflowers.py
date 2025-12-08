@@ -65,7 +65,7 @@ def golden_hour():
 			num_7s += 1
 	if num_7s == 9:
 		utils.move_to(2,2)
-		while num_items(Items.Fertilizer) > 0 and num_items(Items.Power) < desired_power:
+		while num_items(Items.Fertilizer) > 0 and num_items(Items.Power) < (2 * desired_power):
 			if get_entity_type() != Entities.Sunflower:
 				harvest()
 			if get_ground_type() != Grounds.Soil:
