@@ -8,7 +8,7 @@ made_drones = {}
 def generate_maze(size):
 	harvest()
 	plant(Entities.Bush)
-	use_item(Items.Weird_Substance, size)
+	use_item(Items.Weird_Substance, size*2**(num_unlocked(Unlocks.Mazes)-1))
 
 def solve_maze():
 	if get_entity_type() == Entities.Treasure:

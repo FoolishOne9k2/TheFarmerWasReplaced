@@ -3,6 +3,9 @@ def abs(n):
 		return -n
 	return n
 
+def get_pos():
+	return (get_pos_x(),get_pos_y())
+
 def _move_1d(dest, pos_f, directionPositive, directionNegative):
 	direction = None
 	dist = abs(dest - pos_f())
