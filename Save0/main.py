@@ -47,6 +47,13 @@ def do_sunflowers():
 		regions.plant_region_follow((2,0),(get_world_size(),1),sunflowers.plant_sunflower,sunflowers.harvest_sunflowers)
 
 def idle():
+	utils.move_to(0,1)
+	utils.maintain_water_level(.75)
+	plant.plant_grass()
+	if can_harvest():
+		harvest()
+
+def _idle_weird():
 	utils.move_to(0,0)
 	utils.maintain_water_level(.75)
 	plant.plant_grass()

@@ -1,7 +1,7 @@
 import utils
 
 planted_sunflowers = {}
-desired_power = 10000
+desired_power = 100000
 
 def num_grown():
 	global planted_sunflowers
@@ -64,7 +64,7 @@ def golden_hour():
 		if planted_sunflowers[sunflower] == 7:
 			num_7s += 1
 	if num_7s == 9:
-		utils.move_to(2,0)
+		utils.move_to(0,0)
 		while num_items(Items.Fertilizer) > 0 and num_items(Items.Power) < (2 * desired_power):
 			if get_entity_type() != Entities.Sunflower:
 				harvest()
@@ -78,7 +78,7 @@ def golden_hour():
 			if num_items(Items.Weird_Substance) > 0:
 				use_item(Items.Weird_Substance)
 			harvest()
-			gather_weird()
+			# gather_weird()
 
 def gather_weird():
 	pos = (get_pos_x(), get_pos_y())
