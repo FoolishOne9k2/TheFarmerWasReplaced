@@ -4,4 +4,4 @@ import utils
 # put on hat
 
 def dinosaur_eats_apples():
-    utils.reset()
+	utils.reset()
