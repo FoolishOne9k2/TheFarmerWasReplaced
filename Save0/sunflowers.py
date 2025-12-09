@@ -64,7 +64,7 @@ def golden_hour():
 		if planted_sunflowers[sunflower] == 7:
 			num_7s += 1
 	if num_7s == 9:
-		utils.move_to(2,2)
+		utils.move_to(2,0)
 		while num_items(Items.Fertilizer) > 0 and num_items(Items.Power) < (2 * desired_power):
 			if get_entity_type() != Entities.Sunflower:
 				harvest()
@@ -84,15 +84,6 @@ def gather_weird():
 	pos = (get_pos_x(), get_pos_y())
 	for i in [-1,1]:
 		utils.move_to(pos[0]+i, pos[1])
-		if get_entity_type() != Entities.Sunflower:
-			harvest()
-			if get_ground_type() != Grounds.Grassland:
-				till()
-			while not can_harvest() and get_entity_type() == Entities.Grass:
-				harvest()
-				break
-	for j in [-1,1]:
-		utils.move_to(pos[0], pos[1]+j)
 		if get_entity_type() != Entities.Sunflower:
 			harvest()
 			if get_ground_type() != Grounds.Grassland:

@@ -65,4 +65,8 @@ def spawn_drone_wait(function):
 def wait_for_list(drones):
 	for drone in drones:
 		wait_for(drone)
+
+def wait_drone_limit(limit, function):
+	while num_drones() > limit:
+		function()
 	
