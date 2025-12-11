@@ -20,14 +20,19 @@ def dinosaur_eats_apples():
 				quick_print("Apples match drone didn't move to harvest")
 			quick_print("Next apple:",apple)
 			apples += 1
-			_dino_move()
 		# quick_print(pos[0] <= apple[0], pos[1] <= apple[1], _columns_of_tails(apples) < apple[0] - pos[0])
 		# and pos[1] != 0
-		if pos[0] <= apple[0] and pos[1] <= apple[1] and _columns_of_tails(apples) < get_world_size() - apple[0] and (_allowed_to_move_north(pos) or pos[1] > 0):
-			_move_to_apple(apple)
-		elif _columns_of_tails(apples) < pos[0] and pos[0] < get_world_size() - 1 and pos[1] > 0 and apple[0] <= pos[0]:
-			quick_print("Manage Tail")
-			move(East)
+		if not _enough_apples(apples):
+			if pos[0] <= apple[0] and pos[1] < apple[1] and _allowed_to_move_north(pos) and pos[0] < ((get_world_size() - 1) - (_columns_of_tails(apples) + 1)):
+				move(North)
+			elif pos[0] <= apple[0] and pos[1] > apple[1] and not _allowed_to_move_north(pos) and apple[1] != 0 and pos[0] < ((get_world_size() - 1) - (_columns_of_tails(apples) + 1)):
+				move(South)
+			elif pos[0] < apple[0] and pos[1] > 0 and pos[0] < ((get_world_size() - 1) - (_columns_of_tails(apples) + 1)):
+				move(East)
+			elif (_columns_of_tails(apples) + 1) < pos[0] and pos[0] < get_world_size() - 1 and pos[1] > 0 and apple[0] <= pos[0] and pos[0] < ((get_world_size() - 1) - (_columns_of_tails(apples) + 1)):
+				move(East)
+			else:
+				_dino_move()
 		else:
 			_dino_move()
 	change_hat(Hats.Carrot_Hat)
@@ -37,6 +42,9 @@ def _columns_of_tails(apples):
 
 def _allowed_to_move_north(pos):
 	return pos[0] % 2 == 0 
+
+def _enough_apples(apples):
+	apples > (get_world_size() * 8)
 
 def _dino_move():
 	pos = utils.get_pos()

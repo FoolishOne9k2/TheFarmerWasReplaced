@@ -114,8 +114,7 @@ def gather_weird():
 	utils.move_to(pos[0],pos[1])
 
 if debug == True:
-	# dinosaur.dinosaur_eats_apples()
-	do_sunflowers()
+	dinosaur.dinosaur_eats_apples()
 else:
 	main()
 
