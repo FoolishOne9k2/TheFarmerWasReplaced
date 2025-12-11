@@ -41,6 +41,7 @@ def grass_wood_carrot():
 	if can_harvest():
 		harvest()
 	if utils.checker_board(get_pos_x(), get_pos_y()):
+		utils.maintain_water_level(.4)
 		plant.plant_tree()
 	else:
 		if get_pos_x() % 2 == 0:

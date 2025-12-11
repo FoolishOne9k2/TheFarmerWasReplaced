@@ -40,7 +40,7 @@ def reset():
 		for j in range(get_world_size()):
 			move_to(get_pos_x(),j)
 			harvest()
-			if get_ground_type() != Grounds.Grassland:
+			if get_ground_type() != Grounds.Soil:
 				till()
 	drones = []
 	for i in range(get_world_size()):
@@ -68,6 +68,12 @@ def spawn_drone_wait(function):
 def wait_for_list(drones):
 	for drone in drones:
 		wait_for(drone)
+
+def has_finished_list(drones):
+	for drone in drones:
+		if not has_finished(drone):
+			return False
+	return True
 
 def wait_drone_limit(limit, function):
 	while num_drones() > limit:

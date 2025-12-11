@@ -28,7 +28,8 @@ def harvest_sunflowers():
 	measure_all_sunflowers()
 	while num_grown() >= 10:
 		harvest_sunflower()
-	golden_hour()
+	if num_items(Items.Power) < desired_power:
+		golden_hour()
 
 def plant_sunflower():
 	global planted_sunflowers
@@ -64,21 +65,23 @@ def golden_hour():
 		if planted_sunflowers[sunflower] == 7:
 			num_7s += 1
 	if num_7s == 9:
+		count = 0
 		utils.move_to(0,0)
-		while num_items(Items.Fertilizer) > 0 and num_items(Items.Power) < (2 * desired_power):
+		while num_items(Items.Fertilizer) > 0 and num_items(Items.Power) < (2 * desired_power) and count < 500:
+			count += 1
 			if get_entity_type() != Entities.Sunflower:
 				harvest()
 			if get_ground_type() != Grounds.Soil:
 				till()
 			plant(Entities.Sunflower)
 			while not can_harvest():
-				if num_items(Items.Fertilizer) > 0:
+				if num_items(Items.Fertilizer) > 500:
 					use_item(Items.Fertilizer)
 				utils.maintain_water_level(.75)
-			if num_items(Items.Weird_Substance) > 0:
+			if num_items(Items.Weird_Substance) > 1000:
 				use_item(Items.Weird_Substance)
 			harvest()
-			# gather_weird()
+
 
 def gather_weird():
 	pos = (get_pos_x(), get_pos_y())
