@@ -44,7 +44,7 @@ def _allowed_to_move_north(pos):
 	return pos[0] % 2 == 0 
 
 def _enough_apples(apples):
-	apples > (get_world_size() * 8)
+	return apples > (get_world_size() * 8)
 
 def _dino_move():
 	pos = utils.get_pos()
